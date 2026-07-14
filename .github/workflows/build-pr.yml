@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: Keeper-Security/ksm-action@v1
         if: ${{ env.KSM_CONFIG != '' }}
@@ -24,7 +24,7 @@ jobs:
             ${{ vars.KEEPER_SONARCLOUD_RECORD_ID }}/field/password > env:SONAR_TOKEN
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 17
