@@ -14,7 +14,7 @@ jobs:
       branches: ${{ steps.extract_branches.outputs.branches }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: List branches
@@ -30,7 +30,7 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ matrix.branch }}
           
@@ -47,7 +47,7 @@ jobs:
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       # Crowdin download
       - name: Run Crowdin download
-        uses: crowdin/github-action@v2
+        uses: crowdin/github-action@v3
         with:
           upload_translations: false
           upload_sources: false
@@ -77,7 +77,7 @@ jobs:
           keeper-secret-config: ${{ secrets.KSM_CONFIG }}
       - name: Create Pull Request
         if: env.modifiedlines > 0
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         id: create-pr
         with:
           branch: feat/${{ matrix.branch }}/update-translations
